@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <item android:title="Distance"
+        android:id="@+id/nav_item_distance" />
+        <!--android:icon="@drawable/distance"/>-->
+
+    <item android:title="Temperature"
+        android:id="@+id/nav_item_temp" />
+        <!--android:icon="@drawable/sent"/>-->
+
+
+
+    <!--<item android:title="Others">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:title="Spam"-->
+                <!--android:icon="@drawable/spam"/>-->
+            <!--<item-->
+                <!--android:title="Bin"-->
+                <!--android:icon="@drawable/bin"/>-->
+        <!--</menu>-->
+    <!--</item>-->
+
+    <group android:id="@+id/group_settings_id">
+
+        <item android:title="Settings" />
+            <!--android:icon="@drawable/settings"/>-->
+        <item android:title="Help" />
+            <!--android:icon="@drawable/help"/>-->
+    </group>
+
+
+</menu>
