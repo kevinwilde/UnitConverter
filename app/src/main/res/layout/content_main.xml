@@ -27,10 +27,10 @@
 
 
         <FrameLayout
+            android:id="@+id/containerView"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/containerView">
+            android:layout_height="match_parent">
         </FrameLayout>
 
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:id="@+id/shitstuff"
+            android:id="@+id/navView"
             app:itemTextColor="@color/colorPrimaryDark"
             app:menu="@menu/drawer_menu"
             android:layout_marginTop="-24dp"

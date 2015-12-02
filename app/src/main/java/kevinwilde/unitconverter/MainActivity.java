@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
          */
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        mNavigationView = (NavigationView) findViewById(R.id.shitstuff) ;
+        mNavigationView = (NavigationView) findViewById(R.id.navView) ;
 
         /**
          * Lets inflate the very first fragment
@@ -61,19 +61,20 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
 
+                FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+                switch (menuItem.getItemId()) {
+                    case R.id.nav_item_distance:
+                        fragmentTransaction.replace(R.id.containerView, new TabFragment());
+                        break;
 
+                    case R.id.nav_item_temp:
+                        fragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
+                        break;
 
-                if (menuItem.getItemId() == R.id.nav_item_distance) {
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
-
+                    case R.id.nav_item_settings:
+                        fragmentTransaction.replace(R.id.containerView, new SettingsFragment()).commit();
+                        break;
                 }
-
-                if (menuItem.getItemId() == R.id.nav_item_temp) {
-                    FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.containerView,new TabFragment()).commit();
-                }
-
                 return false;
             }
 

@@ -19,26 +19,50 @@
         android:ems="10"
         android:inputType="numberDecimal|numberSigned" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup1"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/from" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fromSpinner" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/to" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/toSpinner" />
+
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editText1"
-        android:layout_alignLeft="@+id/editText1">
-
-        <RadioButton
-            android:id="@+id/radioMtoK"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/to_kilometers" />
-
-        <RadioButton
-            android:id="@+id/radioKtoM"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_miles" />
-    </RadioGroup>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/answer" />
 
     <LinearLayout
         android:layout_width="match_parent"

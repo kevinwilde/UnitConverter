@@ -5,9 +5,22 @@
     <string name="clear">Clear</string>
     <string name="invalid_input">Please enter a number</string>
 
+    <string name="to">to</string>
+    <string name="from">from</string>
+
     <string name="distance">Distance</string>
-    <string name="to_kilometers">to Kilometers</string>
-    <string name="to_miles">to Miles</string>
+    <string-array name="distance_units_array">
+        <item>inches</item>
+        <item>feet</item>
+        <item>yards</item>
+        <item>miles</item>
+        <item>centimeters</item>
+        <item>meters</item>
+        <item>kilometers</item>
+        <item>millimeters</item>
+        <item>micrometers</item>
+        <item>nanometers</item>
+    </string-array>
 
     <string name="temperature">Temperature</string>
     <string name="to_celsius">to Celsius</string>
