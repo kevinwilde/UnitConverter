@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -17,6 +18,7 @@ import android.widget.Toast;
 public class TemperatureFragment extends Fragment implements View.OnClickListener {
 
     private EditText input;
+    private TextView answer;
     private Button btnConvert;
     private Button btnClear;
     private RadioButton rbCtoF;
@@ -25,8 +27,9 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.temp_layout,null);
+        View v = inflater.inflate(R.layout.fragment_temperature,null);
         input = (EditText) v.findViewById(R.id.inputValue);
+        answer = (TextView) v.findViewById(R.id.answer);
         btnConvert = (Button) v.findViewById(R.id.btnConvert);
         btnClear = (Button) v.findViewById(R.id.btnClear);
         rbCtoF = (RadioButton) v.findViewById(R.id.radioCtoF);
@@ -44,14 +47,14 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
                     Toast.makeText(getActivity(), R.string.invalid_input, Toast.LENGTH_LONG).show();
                 }
                 else {
-                    float temp = Float.parseFloat(input.getText().toString());
+                    double temp = Double.parseDouble(input.getText().toString());
                     if (rbCtoF.isChecked()) {
-                        input.setText(String.valueOf(convertCtoF(temp)));
+                        answer.setText(String.valueOf(convertCtoF(temp)));
                         rbCtoF.setChecked(false);
                         rbFtoC.setChecked(true);
                     }
                     else if (rbFtoC.isChecked()) {
-                        input.setText(String.valueOf(convertFtoC(temp)));
+                        answer.setText(String.valueOf(convertFtoC(temp)));
                         rbCtoF.setChecked(true);
                         rbFtoC.setChecked(false);
                     }
@@ -59,15 +62,16 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.btnClear:
                 input.setText("");
+                answer.setText("");
                 break;
         }
     }
 
-    private float convertCtoF(float c) {
+    private double convertCtoF(double c) {
         return ((c * 9 / 5) + 32);
     }
 
-    private float convertFtoC(float f) {
+    private double convertFtoC(double f) {
         return ((f - 32) * 5 / 9);
     }
 }

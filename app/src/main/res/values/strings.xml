@@ -4,11 +4,16 @@
     <string name="convert">Convert</string>
     <string name="clear">Clear</string>
     <string name="invalid_input">Please enter a number</string>
+    <string name="home">Home</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="to">to</string>
     <string name="from">from</string>
 
     <string name="distance">Distance</string>
+
     <string-array name="distance_units_array">
         <item>inches</item>
         <item>feet</item>
@@ -20,10 +25,26 @@
         <item>millimeters</item>
         <item>micrometers</item>
         <item>nanometers</item>
+        <item>lightyears</item>
     </string-array>
 
     <string name="temperature">Temperature</string>
-    <string name="to_celsius">to Celsius</string>
-    <string name="to_fahrenheit">to Fahrenheit</string>
+    <string name="to_celsius">from Fahrenheit to Celsius</string>
+    <string name="to_fahrenheit">from Celsius to Fahrenheit</string>
+    <string name="title_activity_converstion">ConverstionActivity</string>
+
+    <string name="mass">Mass</string>
+    <string-array name="mass_units_array">
+        <item>pounds</item>
+        <item>kilograms</item>
+        <item>grams</item>
+        <item>milligrams</item>
+        <item>micrograms</item>
+        <item>ounces</item>
+        <item>stones</item>
+        <item>US tons</item>
+        <item>imperial tons</item>
+        <item>metric tons</item>
+    </string-array>
 
 </resources>
