@@ -20,6 +20,7 @@ import android.widget.Toast;
  */
 public class MassFragment extends Fragment implements View.OnClickListener {
 
+    private ConversionsDataSource mDataSource;
     private EditText input;
     private Spinner toSpinner;
     private Spinner fromSpinner;
@@ -50,6 +51,7 @@ public class MassFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mDataSource = new ConversionsDataSource(this.getActivity());
         View v = inflater.inflate(R.layout.multipliers_layout, null);
         input = (EditText) v.findViewById(R.id.inputValue);
         toSpinner = (Spinner) v.findViewById(R.id.toSpinner);
@@ -80,7 +82,10 @@ public class MassFragment extends Fragment implements View.OnClickListener {
                     int fromUnit = fromSpinner.getSelectedItemPosition();
                     int toUnit = toSpinner.getSelectedItemPosition();
                     double ans = inpVal * mMultipliers[fromUnit][toUnit];
-                    answer.setText(Double.toString(ans) + " " + toUnit);
+                    String[] units = getResources().getStringArray(R.array.mass_units_array);
+                    answer.setText(Double.toString(ans) + " " + units[toUnit]);
+                    String conversionString = input.getText().toString() + " " + units[fromUnit] + " = " + answer.getText().toString();
+                    mDataSource.InsertRecentConversion(conversionString);
                 }
                 break;
             case R.id.btnClear:

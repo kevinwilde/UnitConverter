@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightGray"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    android:background="@color/lightGray">
+    android:paddingTop="@dimen/activity_vertical_margin">
+    <!--tools:context=".ConversionActivity">-->
 
     <EditText
         android:id="@+id/inputValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberDecimal|numberSigned" />
+        android:inputType="numberDecimal|numberSigned"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,13 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/from" />
+            android:text="@string/from"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <Spinner
+            android:id="@+id/fromSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fromSpinner" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -46,13 +47,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/to" />
+            android:text="@string/to"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <Spinner
+            android:id="@+id/toSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toSpinner" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -60,27 +61,27 @@
         android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="22dp">
+        android:layout_marginTop="22dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnConvert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/convert"
-            android:onClick="onClick" />
+            android:onClick="onClick"
+            android:text="@string/convert"/>
 
         <Button
             android:id="@+id/btnClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/clear"
-            android:onClick="onClick" />
+            android:onClick="onClick"
+            android:text="@string/clear"/>
 
     </LinearLayout>
 

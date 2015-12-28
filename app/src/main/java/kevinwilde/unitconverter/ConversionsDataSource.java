@@ -45,7 +45,7 @@ public class ConversionsDataSource {
                 "SELECT " + mDbHelper.COLUMN_ID + ", " + mDbHelper.COLUMN_CONVERSION_STRING
                         + " FROM " + mDbHelper.TABLE_RECENT_CONVERSIONS
                         + " WHERE DELETED = 0"
-                        + " ORDER BY " + mDbHelper.COLUMN_CONVERSION_DATE,
+                        + " ORDER BY " + mDbHelper.COLUMN_CONVERSION_DATE + " DESC",
                 null
         );
     }
@@ -57,7 +57,7 @@ public class ConversionsDataSource {
                 "SELECT " + mDbHelper.COLUMN_ID + ", " + mDbHelper.COLUMN_CONVERSION_STRING
                         + " FROM " + mDbHelper.TABLE_SAVED_CONVERSIONS
                         + " WHERE DELETED = 0"
-                        + " ORDER BY " + mDbHelper.COLUMN_CONVERSION_DATE,
+                        + " ORDER BY " + mDbHelper.COLUMN_CONVERSION_DATE + " DESC",
                 null
         );
     }

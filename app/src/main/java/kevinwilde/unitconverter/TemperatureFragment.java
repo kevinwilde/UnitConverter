@@ -54,13 +54,13 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
                         answer.setText(String.valueOf(convertCtoF(temp)) + " Fahrenheit");
                         String conversionString = input.getText().toString() + " Celsius = " + answer.getText().toString();
                         mDataSource.InsertRecentConversion(conversionString);
-                        mDataSource.InsertSavedConversion(conversionString);
+                        //mDataSource.InsertSavedConversion(conversionString);
                     }
                     else if (rbFtoC.isChecked()) {
                         answer.setText(String.valueOf(convertFtoC(temp)) + " Celsius");
                         String conversionString = input.getText().toString() + " Fahrenheit = " + answer.getText().toString();
                         mDataSource.InsertRecentConversion(conversionString);
-                        mDataSource.InsertSavedConversion(conversionString);
+                        //mDataSource.InsertSavedConversion(conversionString);
                     }
                 }
                 break;
