@@ -17,6 +17,7 @@ import android.widget.Toast;
  */
 public class TemperatureFragment extends Fragment implements View.OnClickListener {
 
+    private ConversionsDataSource mDataSource;
     private EditText input;
     private TextView answer;
     private Button btnConvert;
@@ -27,6 +28,7 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mDataSource = new ConversionsDataSource(this.getActivity());
         View v = inflater.inflate(R.layout.fragment_temperature,null);
         input = (EditText) v.findViewById(R.id.inputValue);
         answer = (TextView) v.findViewById(R.id.answer);
@@ -49,14 +51,16 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
                 else {
                     double temp = Double.parseDouble(input.getText().toString());
                     if (rbCtoF.isChecked()) {
-                        answer.setText(String.valueOf(convertCtoF(temp)));
-                        rbCtoF.setChecked(false);
-                        rbFtoC.setChecked(true);
+                        answer.setText(String.valueOf(convertCtoF(temp)) + " Fahrenheit");
+                        String conversionString = input.getText().toString() + " Celsius = " + answer.getText().toString();
+                        mDataSource.InsertRecentConversion(conversionString);
+                        mDataSource.InsertSavedConversion(conversionString);
                     }
                     else if (rbFtoC.isChecked()) {
-                        answer.setText(String.valueOf(convertFtoC(temp)));
-                        rbCtoF.setChecked(true);
-                        rbFtoC.setChecked(false);
+                        answer.setText(String.valueOf(convertFtoC(temp)) + " Celsius");
+                        String conversionString = input.getText().toString() + " Fahrenheit = " + answer.getText().toString();
+                        mDataSource.InsertRecentConversion(conversionString);
+                        mDataSource.InsertSavedConversion(conversionString);
                     }
                 }
                 break;

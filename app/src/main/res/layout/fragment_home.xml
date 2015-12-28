@@ -4,10 +4,19 @@
              android:layout_height="match_parent"
              tools:context="kevinwilde.unitconverter.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/saved_conversions_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+        android:layout_height="wrap_content">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/recent_conversions_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+    </ListView>
 
 </FrameLayout>
