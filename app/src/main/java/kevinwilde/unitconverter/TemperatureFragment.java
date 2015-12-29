@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,25 +18,29 @@ import android.widget.Toast;
  */
 public class TemperatureFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "TemperatureFragment";
+
+    private EditText mInput;
+    private TextView mAnswer;
+    private RadioButton mRbCtoF;
+    private RadioButton mRbFtoC;
     private ConversionsDataSource mDataSource;
-    private EditText input;
-    private TextView answer;
-    private Button btnConvert;
-    private Button btnClear;
-    private RadioButton rbCtoF;
-    private RadioButton rbFtoC;
+    private ImageView mStarConversion;
+    private String mConversionString;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mDataSource = new ConversionsDataSource(this.getActivity());
         View v = inflater.inflate(R.layout.fragment_temperature,null);
-        input = (EditText) v.findViewById(R.id.inputValue);
-        answer = (TextView) v.findViewById(R.id.answer);
-        btnConvert = (Button) v.findViewById(R.id.btnConvert);
-        btnClear = (Button) v.findViewById(R.id.btnClear);
-        rbCtoF = (RadioButton) v.findViewById(R.id.radioCtoF);
-        rbFtoC = (RadioButton) v.findViewById(R.id.radioFtoC);
+        mStarConversion = (ImageView) v.findViewById(R.id.img_star_conversion);
+        mStarConversion.setColorFilter(getResources().getColor(R.color.colorAccent));
+        mInput = (EditText) v.findViewById(R.id.inputValue);
+        mAnswer = (TextView) v.findViewById(R.id.answer);
+        Button btnConvert = (Button) v.findViewById(R.id.btnConvert);
+        Button btnClear = (Button) v.findViewById(R.id.btnClear);
+        mRbCtoF = (RadioButton) v.findViewById(R.id.radioCtoF);
+        mRbFtoC = (RadioButton) v.findViewById(R.id.radioFtoC);
         btnConvert.setOnClickListener(this);
         btnClear.setOnClickListener(this);
         return v;
@@ -45,29 +50,36 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
     public void onClick(View view){
         switch (view.getId()) {
             case R.id.btnConvert:
-                if (input.getText().length() == 0) {
+                if (mInput.getText().length() == 0) {
                     Toast.makeText(getActivity(), R.string.invalid_input, Toast.LENGTH_LONG).show();
                 }
                 else {
-                    double temp = Double.parseDouble(input.getText().toString());
-                    if (rbCtoF.isChecked()) {
-                        answer.setText(String.valueOf(convertCtoF(temp)) + " Fahrenheit");
-                        String conversionString = input.getText().toString() + " Celsius = " + answer.getText().toString();
-                        mDataSource.InsertRecentConversion(conversionString);
-                        //mDataSource.InsertSavedConversion(conversionString);
+                    mStarConversion.setImageResource(R.mipmap.ic_star_border);
+                    mStarConversion.setOnClickListener(this);
+                    double temp = Double.parseDouble(mInput.getText().toString());
+                    if (mRbCtoF.isChecked()) {
+                        mAnswer.setText(String.valueOf(convertCtoF(temp)) + " Fahrenheit");
+                        mConversionString = mInput.getText().toString() + " Celsius = " + mAnswer.getText().toString();
+                        mDataSource.InsertRecentConversion(mConversionString);
                     }
-                    else if (rbFtoC.isChecked()) {
-                        answer.setText(String.valueOf(convertFtoC(temp)) + " Celsius");
-                        String conversionString = input.getText().toString() + " Fahrenheit = " + answer.getText().toString();
-                        mDataSource.InsertRecentConversion(conversionString);
-                        //mDataSource.InsertSavedConversion(conversionString);
+                    else if (mRbFtoC.isChecked()) {
+                        mAnswer.setText(String.valueOf(convertFtoC(temp)) + " Celsius");
+                        mConversionString = mInput.getText().toString() + " Fahrenheit = " + mAnswer.getText().toString();
+                        mDataSource.InsertRecentConversion(mConversionString);
                     }
                 }
                 break;
             case R.id.btnClear:
-                input.setText("");
-                answer.setText("");
+                mInput.setText("");
+                mAnswer.setText("");
+                mStarConversion.setImageDrawable(null);
                 break;
+            case R.id.img_star_conversion:
+                mDataSource.InsertSavedConversion(mConversionString);
+                mStarConversion.setImageResource(R.mipmap.ic_star);
+                Toast.makeText(getActivity(), R.string.conversion_saved, Toast.LENGTH_LONG).show();
+                break;
+            default:
         }
     }
 

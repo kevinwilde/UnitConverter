@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,13 +21,15 @@ import android.widget.Toast;
  */
 public class MassFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "MassFragment";
+
+    private EditText mInput;
+    private Spinner mToSpinner;
+    private Spinner mFromSpinner;
+    private TextView mAnswer;
     private ConversionsDataSource mDataSource;
-    private EditText input;
-    private Spinner toSpinner;
-    private Spinner fromSpinner;
-    private TextView answer;
-    private Button btnConvert;
-    private Button btnClear;
+    private ImageView mStarConversion;
+    private String mConversionString;
 
     private double[][] mMultipliers = new double[][]{ //TODO:
         //         in         ft          yd          mi            cm          m         km         mm         um           nm  ly
@@ -53,17 +56,19 @@ public class MassFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mDataSource = new ConversionsDataSource(this.getActivity());
         View v = inflater.inflate(R.layout.multipliers_layout, null);
-        input = (EditText) v.findViewById(R.id.inputValue);
-        toSpinner = (Spinner) v.findViewById(R.id.toSpinner);
-        fromSpinner = (Spinner) v.findViewById(R.id.fromSpinner);
-        answer = (TextView) v.findViewById(R.id.answer);
-        btnConvert = (Button) v.findViewById(R.id.btnConvert);
-        btnClear = (Button) v.findViewById(R.id.btnClear);
+        mStarConversion = (ImageView) v.findViewById(R.id.img_star_conversion);
+        mStarConversion.setColorFilter(getResources().getColor(R.color.colorAccent));
+        mInput = (EditText) v.findViewById(R.id.inputValue);
+        mToSpinner = (Spinner) v.findViewById(R.id.toSpinner);
+        mFromSpinner = (Spinner) v.findViewById(R.id.fromSpinner);
+        mAnswer = (TextView) v.findViewById(R.id.answer);
+        Button btnConvert = (Button) v.findViewById(R.id.btnConvert);
+        Button btnClear = (Button) v.findViewById(R.id.btnClear);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity(), R.array.mass_units_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        toSpinner.setAdapter(adapter);
-        fromSpinner.setAdapter(adapter);
+        mToSpinner.setAdapter(adapter);
+        mFromSpinner.setAdapter(adapter);
 
         btnConvert.setOnClickListener(this);
         btnClear.setOnClickListener(this);
@@ -74,24 +79,32 @@ public class MassFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view){
         switch (view.getId()) {
             case R.id.btnConvert:
-                if (input.getText().length() == 0) {
+                if (mInput.getText().length() == 0) {
                     Toast.makeText(getActivity(), R.string.invalid_input, Toast.LENGTH_LONG).show();
                 }
                 else {
-                    double inpVal = Double.parseDouble(input.getText().toString());
-                    int fromUnit = fromSpinner.getSelectedItemPosition();
-                    int toUnit = toSpinner.getSelectedItemPosition();
+                    mStarConversion.setImageResource(R.mipmap.ic_star_border);
+                    mStarConversion.setOnClickListener(this);
+                    double inpVal = Double.parseDouble(mInput.getText().toString());
+                    int fromUnit = mFromSpinner.getSelectedItemPosition();
+                    int toUnit = mToSpinner.getSelectedItemPosition();
                     double ans = inpVal * mMultipliers[fromUnit][toUnit];
                     String[] units = getResources().getStringArray(R.array.mass_units_array);
-                    answer.setText(Double.toString(ans) + " " + units[toUnit]);
-                    String conversionString = input.getText().toString() + " " + units[fromUnit] + " = " + answer.getText().toString();
-                    mDataSource.InsertRecentConversion(conversionString);
+                    mAnswer.setText(Double.toString(ans) + " " + units[toUnit]);
+                    mConversionString = mInput.getText().toString() + " " + units[fromUnit] + " = " + mAnswer.getText().toString();
+                    mDataSource.InsertRecentConversion(mConversionString);
                 }
                 break;
             case R.id.btnClear:
-                input.setText("");
-                answer.setText("");
+                mInput.setText("");
+                mAnswer.setText("");
                 break;
+            case R.id.img_star_conversion:
+                mDataSource.InsertSavedConversion(mConversionString);
+                mStarConversion.setImageResource(R.mipmap.ic_star);
+                Toast.makeText(getActivity(), R.string.conversion_saved, Toast.LENGTH_LONG).show();
+                break;
+            default:
         }
     }
 
