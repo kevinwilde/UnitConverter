@@ -25,8 +25,10 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
     private RadioButton mRbCtoF;
     private RadioButton mRbFtoC;
     private ConversionsDataSource mDataSource;
+    private Boolean mConversionSaved;
     private ImageView mStarConversion;
     private String mConversionString;
+    private long mConversionId;
 
     @Nullable
     @Override
@@ -54,6 +56,7 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
                     Toast.makeText(getActivity(), R.string.invalid_input, Toast.LENGTH_LONG).show();
                 }
                 else {
+                    mConversionSaved = false;
                     mStarConversion.setImageResource(R.mipmap.ic_star_border);
                     mStarConversion.setOnClickListener(this);
                     double temp = Double.parseDouble(mInput.getText().toString());
@@ -72,12 +75,22 @@ public class TemperatureFragment extends Fragment implements View.OnClickListene
             case R.id.btnClear:
                 mInput.setText("");
                 mAnswer.setText("");
+                mConversionSaved = false;
                 mStarConversion.setImageDrawable(null);
                 break;
             case R.id.img_star_conversion:
-                mDataSource.InsertSavedConversion(mConversionString);
-                mStarConversion.setImageResource(R.mipmap.ic_star);
-                Toast.makeText(getActivity(), R.string.conversion_saved, Toast.LENGTH_LONG).show();
+                if (mConversionSaved) {
+                    mConversionSaved = false;
+                    mDataSource.DeleteSavedConversion(mConversionId);
+                    mStarConversion.setImageResource(R.mipmap.ic_star_border);
+                    Toast.makeText(getActivity(), R.string.conversion_unsaved, Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    mConversionSaved = true;
+                    mConversionId = mDataSource.InsertSavedConversion(mConversionString);
+                    mStarConversion.setImageResource(R.mipmap.ic_star);
+                    Toast.makeText(getActivity(), R.string.conversion_saved, Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
         }

@@ -8,6 +8,11 @@
     <string name="saved_conversions">Saved Conversions</string>
     <string name="recent_conversions">Recent Conversions</string>
     <string name="conversion_saved">Conversion saved</string>
+    <string name="conversion_unsaved">Conversion unsaved</string>
+    <string name="delete_conversion">Delete conversion?</string>
+    <string name="conversion_deleted">Conversion deleted</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

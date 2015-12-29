@@ -1,5 +1,6 @@
 package kevinwilde.unitconverter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -14,30 +15,45 @@ public class ConversionsDataSource {
         mDbHelper = DbHelper.getInstance(context);
     }
 
-    public void InsertRecentConversion(String conversion){
-        mDbHelper.getWritableDatabase().execSQL(
-                "INSERT INTO " + mDbHelper.TABLE_RECENT_CONVERSIONS
-                        + " (" + mDbHelper.COLUMN_CONVERSION_STRING + ")"
-                        + " VALUES (?)",
-                new String[] { conversion }
-        );
+    public long InsertRecentConversion(String conversion){
+//        mDbHelper.getWritableDatabase().execSQL(
+//                "INSERT INTO " + mDbHelper.TABLE_RECENT_CONVERSIONS
+//                        + " (" + mDbHelper.COLUMN_CONVERSION_STRING + ")"
+//                        + " VALUES (?)",
+//                new String[] { conversion }
+//        );
+        ContentValues values = new ContentValues();
+        values.put(mDbHelper.COLUMN_CONVERSION_STRING, conversion);
+        return mDbHelper.getWritableDatabase().insert(mDbHelper.TABLE_RECENT_CONVERSIONS, null, values);
     }
 
-    public void InsertSavedConversion(String conversion){
-        mDbHelper.getWritableDatabase().execSQL(
-                "INSERT INTO " + mDbHelper.TABLE_SAVED_CONVERSIONS
-                        + " (" + mDbHelper.COLUMN_CONVERSION_STRING + ")"
-                        + " VALUES (?)",
-                new String[] { conversion }
-        );
+    public long InsertSavedConversion(String conversion){
+//        mDbHelper.getWritableDatabase().execSQL(
+//                "INSERT INTO " + mDbHelper.TABLE_SAVED_CONVERSIONS
+//                        + " (" + mDbHelper.COLUMN_CONVERSION_STRING + ")"
+//                        + " VALUES (?)",
+//                new String[] { conversion }
+//        );
+        ContentValues values = new ContentValues();
+        values.put(mDbHelper.COLUMN_CONVERSION_STRING, conversion);
+        return mDbHelper.getWritableDatabase().insert(mDbHelper.TABLE_SAVED_CONVERSIONS, null, values);
     }
 
-    public void DeleteRecentConversion(){
-
+    public void DeleteRecentConversion(long id){
+        String whereClause = mDbHelper.COLUMN_ID + "=?";
+        String[] whereArgs = new String[] { String.valueOf(id) };
+        mDbHelper.getWritableDatabase().delete(mDbHelper.TABLE_RECENT_CONVERSIONS, whereClause, whereArgs);
     }
 
-    public void DeleteSavedConversion(){
-
+    public void DeleteSavedConversion(long id){
+//        mDbHelper.getWritableDatabase().execSQL(
+//                "DELETE FROM " + mDbHelper.TABLE_SAVED_CONVERSIONS
+//                        + " WHERE " + mDbHelper.COLUMN_ID + " = ?",
+//                new Object[] { id }
+//        );
+        String whereClause = mDbHelper.COLUMN_ID + "=?";
+        String[] whereArgs = new String[] { String.valueOf(id) };
+        mDbHelper.getWritableDatabase().delete(mDbHelper.TABLE_SAVED_CONVERSIONS, whereClause, whereArgs);
     }
 
     public Cursor GetRecentConversions(){
