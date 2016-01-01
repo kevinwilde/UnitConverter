@@ -38,7 +38,6 @@ public abstract class MultiplierFragment extends Fragment implements View.OnClic
         // Required empty public constructor
     }
 
-
     public abstract double[][] getMultipliersArray();
     public abstract String[] getUnitsArray();
 
